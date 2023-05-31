@@ -1,0 +1,67 @@
+---
+- name: uninstall multiple packages
+  hosts: all
+  gather_facts: yes
+  become: true
+  
+  tasks:
+  - name: uninstalling packages
+    yum:
+      name: "{{ item }}"
+      state: absent
+    with_items:
+      - git
+      - wget
+      - tree
+      - make
+      - telnet
+      - gzip
+      
+      
+      
+      
+
+
+/*
+---
+- name: uninstall multiple packages
+  hosts: all
+  gather_facts: yes
+  become: true
+  
+  tasks:
+  - name: uninstalling packages
+    yum:
+      name: ['git', 'wget', 'tree', 'make', 'telnet', 'gzip']
+      state: absent
+   
+      
+*/
+
+
+
+
+
+/*
+---
+- name: uninstall multiple packages
+  hosts: all
+  gather_facts: yes
+  become: true
+  
+  tasks:
+  - name: uninstalling packages
+    yum:
+      name: ['git', 'wget']
+      state: removed
+    
+  - name: installing packages
+    yum:
+      name: ['git', 'wget']
+      state: installed 
+   
+      
+
+*/
+
+      

@@ -1,0 +1,13 @@
+---
+- name: Cloning Repo
+  hosts: webservers
+  gather_facts: no
+  become: false
+  vars_files:
+    - vault2.yml
+
+  tasks:
+  - name: Cloning Repo
+    git:
+      repo: "https://{{ git_username }}:{{ git_password }}@github.com/meharaj-sayyad/ansible-vault.git"
+      dest: "/home/ansadmin/vaulttest"

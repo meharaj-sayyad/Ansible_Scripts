@@ -1,0 +1,38 @@
+---
+- name: install multiple packages
+  hosts: all
+  gather_facts: yes
+  become: true
+  
+  tasks:
+  - name: installing packages
+    yum:
+      name: "{{ item }}"
+      state: installed
+    with_items:
+      - git
+      - wget
+      - tree
+      - make
+      - telnet
+      - gzip
+      
+
+/*
+
+
+---
+- name: install multiple packages
+  hosts: all
+  gather_facts: yes
+  become: true
+  
+  tasks:
+  - name: installing packages
+    yum:
+      name: ['git', 'wget', 'tree', 'make', 'telnet', 'gzip']
+      state: installed
+   
+      
+
+  */

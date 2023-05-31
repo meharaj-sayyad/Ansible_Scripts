@@ -1,0 +1,48 @@
+---
+- name: Creating user
+  hosts: all
+  gather_facts: no
+  become: true
+  vars:
+    user_name: Ashish
+  
+  tasks:
+  - name: creating user {{ user_name}}
+    user:
+      name: "{{ user_name }}"
+
+  - name: Create a directory
+    file:
+      path: /opt/{{ user_name }}_temp_dir
+      state: directory
+      owner: "{{ user_name }}"
+      group: "{{ user_name }}"
+      mode: 0755
+      
+
+
+
+/*
+
+---
+- name: Creating user
+  hosts: all
+  gather_facts: no
+  become: true
+  vars_files:
+      - /home/ansadmin/playbooks/user.yml
+  
+  tasks:
+  - name: creating user {{ user_name}}
+    user:
+      name: "{{ user_name }}"
+
+  - name: Create a directory
+    file:
+      path: /opt/{{ user_name }}_temp_dir
+      state: directory
+      owner: "{{ user_name }}"
+      group: "{{ user_name }}"
+      mode: 0755
+
+/*

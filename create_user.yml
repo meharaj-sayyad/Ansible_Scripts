@@ -1,0 +1,10 @@
+---
+- name: Creating user
+  hosts: all
+  gather_facts: no
+  become: true
+  
+  tasks:
+  - name: creating user John
+    user:
+      name: john
