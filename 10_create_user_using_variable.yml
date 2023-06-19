@@ -24,13 +24,14 @@
 
 /*
 
+# We are passing external file as a variable
 ---
 - name: Creating user
   hosts: all
   gather_facts: no
   become: true
   vars_files:
-      - /home/ansadmin/playbooks/user.yml
+      - /home/ansadmin/playbooks/user_variable.yml
   
   tasks:
   - name: creating user {{ user_name}}

@@ -7,48 +7,51 @@
     - tomcat_vars.yml
 
   tasks:
-  - name: Install Java 1.8
+  - name: Install Java 11
     yum:
-      name: java-1.8*
-      state: installed
+      name: java-11-openjdk
+      state: present
 
   - name: Download Tomcat packages
     get_url:
-      url: "{{ tomcat_url }}" 
+      url: "{{ tomcat_url }}"
       dest: /opt
-      mode: 0755
-  
+      mode: '0755'
+
   - name: Extract Tomcat packages
-    unarchive: 
-      src: /opt/{{ tomcat_package }}.tar.gz
+    unarchive:
+      src: /opt/{{ tomcat_package }}.zip
       dest: /opt
       remote_src: yes
 
   - name: Change permissions on Tomcat directory
     file:
       path: /opt/{{ tomcat_package }}
-      mode: 0755
+      mode: '0755'
       recurse: yes
-  
+
   - name: Create link files for Tomcat startup and shutdown scripts
     file:
       src: /opt/{{ tomcat_package }}/bin/{{ item.tomcat_script }}
       dest: /usr/local/bin/{{ item.tomcat_cmd }}
       state: link
-    loop: 
-      - { tomcat_script: 'startup.sh', tomcat_cmd: tomcatup }
-      - { tomcat_script: 'shutdown.sh', tomcat_cmd: tomcatdown }
+    loop:
+      - { tomcat_script: 'startup.sh', tomcat_cmd: 'tomcatup' }
+      - { tomcat_script: 'shutdown.sh', tomcat_cmd: 'tomcatdown' }
 
-  - name: change Port Number
-    linefile:
-      path: /opt/{{ tomcat}}
-    
+  - name: Change port number
+    lineinfile:
+      path: /opt/{{ tomcat_package }}/conf/server.xml
+      regexp: 'Connector port="{{ tomcat_port }}"'
+      line: 'Connector port="{{ tomcat_port }}"'
+      state: present
+
   - name: Create link file for Tomcat shutdown script
     file:
       src: /opt/{{ tomcat_package }}/bin/shutdown.sh
       dest: /usr/local/bin/tomcatdown
       state: link
-  
+
   - name: Start Tomcat service
     command: nohup ./startup.sh
     args:

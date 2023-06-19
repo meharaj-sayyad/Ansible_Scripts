@@ -1,2 +1,4 @@
-tomcat_url: "https://downloads.apache.org/tomcat/tomcat-8/v8.5.88/bin/apache-tomcat-8.5.88.tar.gz.asc"
-tomcat_package: apache-tomcat-8.5.88
+---
+tomcat_url: "https://downloads.apache.org/tomcat/tomcat-8/v8.5.90/bin/apache-tomcat-8.5.90.zip"
+tomcat_package: apache-tomcat-8.5.90
+tomcat_port: 8080
