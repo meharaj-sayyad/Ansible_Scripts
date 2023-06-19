@@ -9,7 +9,7 @@
     file:
       path: /home/ansadmin/testfile
       state: touch
-	  mode: 0755
+	    mode: 0755
       owner: ansadmin
       
 	  

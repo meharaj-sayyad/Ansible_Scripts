@@ -1,38 +1,39 @@
 ---
 - name: installing packages
   hosts: all
-  gather_facts: no
+  gather_facts: yes
   become: true
-  
+
   tasks:
-  - name: installing httpd Redhat
-    yum:
-      name: httpd
-      state: installed
-    when: ansible_os_family == "Redhat"
-     
-  - name: installing httpd Ubuntu
-    yum:
-      name: apache2
-      state: present
-    when: ansible_os_family == "Debian"
-   
-  - name: starting httpd services
-    service:
-      name: httpd
-      state: started
-    when: ansible_os_family == "Redhat"     
-   
-  - name: starting apache services
-    service:
-      name: apache2
-      state: started 
-    when: ansible_os_family == "Debian"
-      
-  - name: Copy file with owner and permissions
-    copy:
-    src: /home/ansadmin/playbooks/index.html
-    dest: /var/www/html
+    - name: installing httpd on Redhat
+      yum:
+        name: httpd
+        state: installed
+      when: ansible_os_family == "Redhat"
+
+    - name: installing httpd on Ubuntu
+      apt:
+        name: apache2
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: starting httpd services
+      service:
+        name: httpd
+        state: started
+      when: ansible_os_family == "Redhat"
+
+    - name: starting apache services
+      service:
+        name: apache2
+        state: started
+      when: ansible_os_family == "Debian"
+
+    - name: Copy file with owner and permissions
+      copy:
+        src: /home/ansadmin/playbooks/index.html
+        dest: /var/www/html
+
     
     
     

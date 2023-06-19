@@ -1,4 +1,4 @@
----
+--- 
 - name: install multiple packages
   hosts: all
   gather_facts: yes
@@ -32,6 +32,29 @@
     yum:
       name: ['git', 'wget', 'tree', 'make', 'telnet', 'gzip']
       state: installed
+   
+      
+
+  */
+
+
+
+
+
+  /*
+
+
+---
+- name: un-install multiple packages
+  hosts: all
+  gather_facts: yes
+  become: true
+  
+  tasks:
+  - name: un-installing packages
+    yum:
+      name: ['git', 'wget', 'tree', 'make', 'telnet', 'gzip']
+      state: removed
    
       
 
