@@ -53,6 +53,6 @@
       state: link
 
   - name: Start Tomcat service
-    command: nohup ./startup.sh
+    shell: nohup ./startup.sh
     args:
       chdir: /opt/{{ tomcat_package }}/bin

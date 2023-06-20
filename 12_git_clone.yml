@@ -9,5 +9,5 @@
   tasks:
   - name: Cloning Repo
     git:
-      repo: "https://{{ git_username }}:{{ git_password }}@github.com/meharaj-sayyad/ansible-vault.git"
+      repo: "https://{{ git_username }}:{{ git_password }}github.com/meharaj-sayyad/webapplication.git"
       dest: "/home/ansadmin/vaulttest"
