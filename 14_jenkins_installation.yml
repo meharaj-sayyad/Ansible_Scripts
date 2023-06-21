@@ -1,0 +1,52 @@
+---
+- name: Playbook to install Jenkins
+  hosts: webservers
+  become: true
+  gather_facts: yes
+  vars_files:
+    - jenkins_vars.yml
+
+  tasks:
+  - name: Install Java
+    package:
+      name: "{{ java_package }}"
+      state: present
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Install Java
+    yum:
+      name: "{{ java_package }}"
+      state: present
+    when: ansible_distribution == "CentOS" or ansible_distribution == "Red Hat Enterprise Linux"
+
+  - name: Add Jenkins repository key
+    apt_key:
+      url: "{{ jenkins_repo_key }}"
+      state: present
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Add Jenkins repository
+    apt_repository:
+      repo: "{{ jenkins_repo }}"
+      state: present
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Add Jenkins repository
+    yum_repository:
+      name: jenkins
+      description: Jenkins Stable
+      baseurl: "{{ jenkins_repo }}"
+      gpgcheck: yes
+      gpgkey: "{{ jenkins_repo_key }}"
+      state: present
+    when: ansible_distribution == "CentOS" or ansible_distribution == "Red Hat Enterprise Linux"
+
+  - name: Install Jenkins
+    package:
+      name: jenkins
+      state: present
+
+  - name: Start Jenkins service
+    service:
+      name: jenkins
+      state: started

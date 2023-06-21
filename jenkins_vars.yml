@@ -1,0 +1,5 @@
+# jenkins_vars.yml
+
+java_package: "java-11-openjdk"
+jenkins_repo_key: "https://pkg.jenkins.io/debian/jenkins.io.key"
+jenkins_repo: "deb https://pkg.jenkins.io/debian-stable binary/"
